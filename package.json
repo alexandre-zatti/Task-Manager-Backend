@@ -4,6 +4,7 @@
   "description": "Projeto backend disciplina Desenvolvimento Web",
   "main": "app.js",
   "scripts": {
+    "start": "nodemon app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -22,6 +23,7 @@
     "express": "^4.17.1"
   },
   "devDependencies": {
+    "nodemon": "^2.0.7",
     "prisma": "^2.22.1"
   }
 }

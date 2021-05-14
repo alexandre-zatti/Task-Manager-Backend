@@ -4,9 +4,9 @@ const post = require('./post');
 const put = require('./put');
 const remove = require('./delete');
 
-projeto.get('/', get);
-projeto.get('/post', post);
-projeto.get('/put', put);
-projeto.get('/delete', remove);
+projeto.get('/:id?', get);
+projeto.post('/post', post);
+projeto.put('/put/:id?', put);
+projeto.delete('/delete/:id?', remove);
 
 module.exports = projeto;

@@ -4,9 +4,9 @@ const post = require('./post');
 const put = require('./put');
 const remove = require('./delete');
 
-sistema.get('/', get);
-sistema.get('/post', post);
-sistema.get('/put', put);
-sistema.get('/delete', remove);
+sistema.get('/:id?', get);
+sistema.post('/post', post);
+sistema.put('/put/:id?', put);
+sistema.delete('/delete/:id?', remove);
 
 module.exports = sistema;

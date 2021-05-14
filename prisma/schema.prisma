@@ -6,3 +6,115 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model comentario {
+  id                Int          @id @default(autoincrement())
+  id_criador        Int
+  id_comentario_pai Int?
+  descricao         String       @db.VarChar(200)
+  created_on        DateTime     @db.Timestamp(6)
+  comentario        comentario?  @relation("comentarioTocomentario_id_comentario_pai", fields: [id_comentario_pai], references: [id])
+  usuario           usuario      @relation(fields: [id_criador], references: [id])
+  other_comentario  comentario[] @relation("comentarioTocomentario_id_comentario_pai")
+}
+
+model complexidade {
+  id         Int      @id @default(autoincrement())
+  nome       String   @unique @db.VarChar(50)
+  created_on DateTime @db.Timestamp(6)
+  tarefa     tarefa[]
+}
+
+model grupo {
+  id         Int      @id @default(autoincrement())
+  nome       String   @unique @db.VarChar(50)
+  created_on DateTime @db.Timestamp(6)
+  tarefa     tarefa[]
+}
+
+model prioridade {
+  id         Int      @id @default(autoincrement())
+  nome       String   @unique @db.VarChar(50)
+  created_on DateTime @db.Timestamp(6)
+  tarefa     tarefa[]
+}
+
+model projeto {
+  id              Int               @id @default(autoincrement())
+  id_criador      Int
+  id_sistema      Int
+  nome            String            @unique @db.VarChar(50)
+  created_on      DateTime          @db.Timestamp(6)
+  usuario         usuario           @relation(fields: [id_criador], references: [id])
+  sistema         sistema           @relation(fields: [id_sistema], references: [id])
+  projeto_usuario projeto_usuario[]
+  tarefa          tarefa[]
+}
+
+model projeto_usuario {
+  id         Int     @id @default(autoincrement())
+  id_usuario Int
+  id_projeto Int
+  projeto    projeto @relation(fields: [id_projeto], references: [id])
+  usuario    usuario @relation(fields: [id_usuario], references: [id])
+}
+
+model sistema {
+  id         Int       @id @default(autoincrement())
+  nome       String    @unique @db.VarChar(50)
+  created_on DateTime  @db.Timestamp(6)
+  projeto    projeto[]
+}
+
+model status {
+  id         Int      @id @default(autoincrement())
+  nome       String   @unique @db.VarChar(50)
+  created_on DateTime @db.Timestamp(6)
+  tarefa     tarefa[]
+}
+
+model tarefa {
+  id                                 Int          @id @default(autoincrement())
+  id_criador                         Int
+  id_projeto                         Int
+  id_grupo                           Int
+  id_dev                             Int?
+  id_tarefa_pai                      Int?
+  id_tipo                            Int
+  id_status                          Int
+  id_prioridade                      Int
+  id_complexidade                    Int
+  tempo_gasto                        Int?
+  titulo                             String       @db.VarChar(50)
+  descricao                          String       @db.VarChar(200)
+  created_on                         DateTime     @db.Timestamp(6)
+  updated_on                         DateTime     @db.Timestamp(6)
+  complexidade                       complexidade @relation(fields: [id_complexidade], references: [id])
+  usuario_tarefa_id_criadorTousuario usuario      @relation("tarefa_id_criadorTousuario", fields: [id_criador], references: [id])
+  usuario_tarefa_id_devTousuario     usuario?     @relation("tarefa_id_devTousuario", fields: [id_dev], references: [id])
+  grupo                              grupo        @relation(fields: [id_grupo], references: [id])
+  prioridade                         prioridade   @relation(fields: [id_prioridade], references: [id])
+  projeto                            projeto      @relation(fields: [id_projeto], references: [id])
+  status                             status       @relation(fields: [id_status], references: [id])
+  tarefa                             tarefa?      @relation("tarefaTotarefa_id_tarefa_pai", fields: [id_tarefa_pai], references: [id])
+  tipo                               tipo         @relation(fields: [id_tipo], references: [id])
+  other_tarefa                       tarefa[]     @relation("tarefaTotarefa_id_tarefa_pai")
+}
+
+model tipo {
+  id         Int      @id @default(autoincrement())
+  nome       String   @unique @db.VarChar(50)
+  created_on DateTime @db.Timestamp(6)
+  tarefa     tarefa[]
+}
+
+model usuario {
+  id                                Int               @id @default(autoincrement())
+  nome                              String            @unique @db.VarChar(50)
+  created_on                        DateTime          @db.Timestamp(6)
+  comentario                        comentario[]
+  projeto                           projeto[]
+  projeto_usuario                   projeto_usuario[]
+  tarefa_tarefa_id_criadorTousuario tarefa[]          @relation("tarefa_id_criadorTousuario")
+  tarefa_tarefa_id_devTousuario     tarefa[]          @relation("tarefa_id_devTousuario")
+}
