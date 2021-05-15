@@ -14,7 +14,6 @@ module.exports = async (req, res) => {
         },
         data: {
           descricao: descricao,
-          created_on: new Date().toISOString()
         }
       })
         .then(() => res.status(200).json('comentario atualizado com sucesso!'));

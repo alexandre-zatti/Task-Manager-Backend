@@ -13,8 +13,10 @@ model comentario {
   id_comentario_pai Int?
   descricao         String       @db.VarChar(200)
   created_on        DateTime     @db.Timestamp(6)
+  id_tarefa         Int
   comentario        comentario?  @relation("comentarioTocomentario_id_comentario_pai", fields: [id_comentario_pai], references: [id])
   usuario           usuario      @relation(fields: [id_criador], references: [id])
+  tarefa            tarefa       @relation(fields: [id_tarefa], references: [id])
   other_comentario  comentario[] @relation("comentarioTocomentario_id_comentario_pai")
 }
 
@@ -84,7 +86,7 @@ model tarefa {
   id_status                          Int
   id_prioridade                      Int
   id_complexidade                    Int
-  tempo_gasto                        Int?
+  tempo_gasto                        Float?
   titulo                             String       @db.VarChar(50)
   descricao                          String       @db.VarChar(200)
   created_on                         DateTime     @db.Timestamp(6)
@@ -98,6 +100,7 @@ model tarefa {
   status                             status       @relation(fields: [id_status], references: [id])
   tarefa                             tarefa?      @relation("tarefaTotarefa_id_tarefa_pai", fields: [id_tarefa_pai], references: [id])
   tipo                               tipo         @relation(fields: [id_tipo], references: [id])
+  comentario                         comentario[]
   other_tarefa                       tarefa[]     @relation("tarefaTotarefa_id_tarefa_pai")
 }
 

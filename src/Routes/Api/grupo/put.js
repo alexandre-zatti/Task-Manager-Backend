@@ -8,20 +8,19 @@ module.exports = async (req, res) => {
   
   try {
     if(id){
-      await prisma.projeto.update({
+      await prisma.grupo.update({
         where: {
           id: parseInt(id),
         },
         data:{
           nome: nome,
-          created_on: new Date().toISOString()
         }
       })
-      .then(() => res.status(200).json('projeto atualizado com sucesso!'));
+      .then(() => res.status(200).json('grupo atualizado com sucesso!'));
     }
    
   } catch (e) {
-    res.status(400).json('Ops! ocorreu um erro ao atualizar o projeto');
+    res.status(400).json('Ops! ocorreu um erro ao atualizar o grupo');
     throw e
   }
 
