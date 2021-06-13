@@ -1,14 +1,21 @@
 const { PrismaClient, Prisma } = require('@prisma/client');
+const bcrypt = require('bcrypt');
 const prisma = new PrismaClient()
 
 module.exports = async (req, res) => {
 
-  const { nome } = req.body
+  const { nome, email, senha } = req.body
   
   try {
+
+    const salt = await bcrypt.genSalt(10);
+    const hashPassword = await bcrypt.hash(senha, salt);
+
     await prisma.usuario.create({
       data:{
         nome: nome,
+        email: email,
+        senha: hashPassword,
         created_on: new Date().toISOString()
       }
     })

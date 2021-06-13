@@ -10,11 +10,15 @@ const tipo = require('./Api/tipo/index')
 const status = require('./Api/status/index')
 const complexidade = require('./Api/complexidade/index')
 const tarefa = require('./Api/tarefa/index')
+const login = require('./Api/login/index')
+const logout = require('./Api/logout/index')
 
 routes.get('/', (req, res) => {
   res.status(200).json({ message: 'Home!' });
 });
 
+routes.use('/login', login);
+routes.use('/logout', logout);
 routes.use('/sistema', sistema);
 routes.use('/projeto', projeto);
 routes.use('/usuario', usuario);

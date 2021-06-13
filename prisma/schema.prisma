@@ -115,6 +115,8 @@ model usuario {
   id                                Int               @id @default(autoincrement())
   nome                              String            @unique @db.VarChar(50)
   created_on                        DateTime          @db.Timestamp(6)
+  email                             String            @db.VarChar(200)
+  senha                             String            @db.VarChar
   comentario                        comentario[]
   projeto                           projeto[]
   projeto_usuario                   projeto_usuario[]
