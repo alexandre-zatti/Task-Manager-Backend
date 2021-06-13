@@ -31,7 +31,7 @@ module.exports = async (req, res) => {
     res.cookie('jwt', token, {
       httpOnly:true,
       sameSite: "none",
-      secure: false,
+      secure: true,
       maxAge: 24 * 60 * 60 * 1000
     })
 
