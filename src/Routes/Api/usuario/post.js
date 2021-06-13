@@ -19,12 +19,13 @@ module.exports = async (req, res) => {
         created_on: new Date().toISOString()
       }
     })
-    .then(() => res.status(200).json('usuario criado com sucesso!'));
+    .then(() => res.status(200).send({message:'usuario criado com sucesso!'}));
     
 
   } catch (e) {
-    res.status(400).json('Ops! ocorreu um erro ao criar o usuario');
-    throw e
+    return res.status(400).send({
+      message:"Ops! ocorreu um erro criando o usuario"
+    })
   }
 
 };
