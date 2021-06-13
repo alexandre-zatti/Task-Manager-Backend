@@ -1,6 +1,8 @@
 const login = require('express').Router();
-const post = require('./post');
+const authenticate = require('./authenticate');
+const getAuthUser = require('./getAuthUser');
 
-login.post('/', post);
+login.post('/', authenticate);
+login.get('/getAuthUser', getAuthUser)
 
 module.exports = login;
