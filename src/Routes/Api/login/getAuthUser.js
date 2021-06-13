@@ -19,8 +19,11 @@ module.exports = async (req, res) => {
               id: claims._id,
             },
         });
-          
+        
+        delete user.senha;
+        user.ok = true;
         res.send(user);
+
     } catch (e) {
         
         return res.status(401).send({
