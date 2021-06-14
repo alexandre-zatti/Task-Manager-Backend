@@ -1,6 +1,6 @@
 const logout = require('express').Router();
-const post = require('./post');
+const logoutAuth = require('./logoutAuth');
 
-logout.post('/', post);
+logout.post('/', logoutAuth);
 
 module.exports = logout;
