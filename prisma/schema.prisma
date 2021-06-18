@@ -44,13 +44,13 @@ model prioridade {
 model projeto {
   id              Int               @id @default(autoincrement())
   id_criador      Int
-  id_sistema      Int
   nome            String            @unique @db.VarChar(50)
   created_on      DateTime          @db.Timestamp(6)
   usuario         usuario           @relation(fields: [id_criador], references: [id])
-  sistema         sistema           @relation(fields: [id_sistema], references: [id])
   projeto_usuario projeto_usuario[]
   tarefa          tarefa[]
+  sistema         sistema?          @relation(fields: [sistemaId], references: [id])
+  sistemaId       Int?
 }
 
 model projeto_usuario {
