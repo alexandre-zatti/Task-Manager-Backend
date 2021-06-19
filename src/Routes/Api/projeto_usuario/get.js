@@ -16,14 +16,14 @@ module.exports = async (req, res) => {
       })
         .then((projeto_usuario) => res.status(200).json(projeto_usuario));
     }else if(id_projeto){
-      await prisma.projeto_usuario.findFirst({
+      await prisma.projeto_usuario.findMany({
         where: {
           id_projeto: parseInt(id_projeto),
         },
       })
         .then((projeto_usuario) => res.status(200).json(projeto_usuario));
     }else if(id_usuario){
-      await prisma.projeto_usuario.findFirst({
+      await prisma.projeto_usuario.findMany({
         where: {
           id_usuario: parseInt(id_usuario),
         },
