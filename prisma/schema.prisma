@@ -46,11 +46,10 @@ model projeto {
   id_criador      Int
   nome            String            @unique @db.VarChar(50)
   created_on      DateTime          @db.Timestamp(6)
+  descricao       String?
   usuario         usuario           @relation(fields: [id_criador], references: [id])
   projeto_usuario projeto_usuario[]
   tarefa          tarefa[]
-  sistema         sistema?          @relation(fields: [sistemaId], references: [id])
-  sistemaId       Int?
 }
 
 model projeto_usuario {
@@ -62,10 +61,9 @@ model projeto_usuario {
 }
 
 model sistema {
-  id         Int       @id @default(autoincrement())
-  nome       String    @unique @db.VarChar(50)
-  created_on DateTime  @db.Timestamp(6)
-  projeto    projeto[]
+  id         Int      @id @default(autoincrement())
+  nome       String   @unique @db.VarChar(50)
+  created_on DateTime @db.Timestamp(6)
 }
 
 model status {
