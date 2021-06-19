@@ -3,7 +3,7 @@ const prisma = new PrismaClient()
 
 module.exports = async (req, res) => {
 
-  const { nome } = req.body
+  const { nome, descricao } = req.body
   const id = req.params.id;
   
   try {
@@ -14,6 +14,7 @@ module.exports = async (req, res) => {
         },
         data:{
           nome: nome,
+          descricao: descricao,
           created_on: new Date().toISOString()
         }
       })
