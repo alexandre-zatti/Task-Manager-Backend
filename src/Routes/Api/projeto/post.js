@@ -3,13 +3,13 @@ const prisma = new PrismaClient()
 
 module.exports = async (req, res) => {
 
-  const { nome, criador, sistema } = req.body
+  const { nome, criador, descricao } = req.body
   
   try {
     await prisma.projeto.create({
       data:{
         id_criador: criador,
-        id_sistema: sistema,
+        descricao: descricao,
         nome: nome,
         created_on: new Date().toISOString()
       }
