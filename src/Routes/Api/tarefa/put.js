@@ -4,7 +4,7 @@ const prisma = new PrismaClient()
 module.exports = async (req, res) => {
 
   const { 
-    grupo,
+    situacao,
     dev, 
     tipo,
     status,
@@ -24,7 +24,7 @@ module.exports = async (req, res) => {
           id: parseInt(id),
         },
         data:{
-          id_grupo: grupo,
+          id_situacao: situacao,
           id_dev: dev,
           id_tipo: tipo,
           id_status: status,

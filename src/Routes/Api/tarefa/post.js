@@ -5,7 +5,7 @@ module.exports = async (req, res) => {
 
   const { criador,
           projeto,
-          grupo,
+          situacao,
           dev, 
           tarefa_pai, 
           tipo,
@@ -22,7 +22,7 @@ module.exports = async (req, res) => {
       data:{
         id_criador: criador,
         id_projeto: projeto,
-        id_grupo: grupo,
+        id_situacao: situacao,
         id_dev: dev,
         id_tarefa_pai: tarefa_pai,
         id_tipo: tipo,
