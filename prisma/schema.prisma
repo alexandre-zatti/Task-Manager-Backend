@@ -77,7 +77,6 @@ model tarefa {
   id_criador                         Int
   id_projeto                         Int
   id_dev                             Int?
-  id_tarefa_pai                      Int?
   id_tipo                            Int
   id_status                          Int
   id_prioridade                      Int
@@ -95,10 +94,8 @@ model tarefa {
   projeto                            projeto      @relation(fields: [id_projeto], references: [id])
   situacao                           situacao?    @relation(fields: [id_situacao], references: [id])
   status                             status       @relation(fields: [id_status], references: [id])
-  tarefa                             tarefa?      @relation("tarefaTotarefa_id_tarefa_pai", fields: [id_tarefa_pai], references: [id])
   tipo                               tipo         @relation(fields: [id_tipo], references: [id])
   comentario                         comentario[]
-  other_tarefa                       tarefa[]     @relation("tarefaTotarefa_id_tarefa_pai")
 }
 
 model tipo {

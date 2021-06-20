@@ -7,7 +7,6 @@ module.exports = async (req, res) => {
           projeto,
           situacao,
           dev, 
-          tarefa_pai, 
           tipo,
           status,
           prioridade,
@@ -18,18 +17,73 @@ module.exports = async (req, res) => {
         } = req.body
 
   try {
+
+    let id_projeto = 0;
+    let id_dev = 0;
+    let id_tipo = 0;
+    let id_status = 0;
+    let id_prioridade = 0;
+    let id_complexidade = 0;
+
+    if(projeto){
+      await prisma.projeto.findFirst({
+        where: {
+          nome: projeto,
+        },
+      }).then((result)=>id_projeto = result.id);
+    }
+
+    if(dev){
+      await prisma.usuario.findFirst({
+        where: {
+          nome: dev,
+        },
+      }).then((result)=>id_dev = result.id);
+    }
+    
+    if(tipo){
+      await prisma.tipo.findFirst({
+        where: {
+          nome: tipo,
+        },
+      }).then((result)=>id_tipo = result.id);
+    }
+
+    if(status){
+      await prisma.status.findFirst({
+        where: {
+          nome: status,
+        },
+      }).then((result)=>id_status = result.id);
+    }
+
+    if(prioridade){
+      await prisma.prioridade.findFirst({
+        where: {
+          nome: prioridade,
+        },
+      }).then((result)=>id_prioridade = result.id);
+    }
+
+    if(complexidade){
+      await prisma.complexidade.findFirst({
+        where: {
+          nome: complexidade,
+        },
+      }).then((result)=>id_complexidade = result.id);
+    }
+
     await prisma.tarefa.create({
       data:{
         id_criador: criador,
-        id_projeto: projeto,
-        id_situacao: situacao,
-        id_dev: dev,
-        id_tarefa_pai: tarefa_pai,
-        id_tipo: tipo,
-        id_status: status,
-        id_prioridade: prioridade,
-        id_complexidade: complexidade,
-        tempo_gasto: tempo_gasto,
+        id_projeto: id_projeto,
+        id_situacao: situacao ? situacao : 2,
+        id_dev: id_dev,
+        id_tipo: id_tipo,
+        id_status: id_status,
+        id_prioridade: id_prioridade,
+        id_complexidade: id_complexidade,
+        tempo_gasto: parseFloat(tempo_gasto),
         titulo: titulo,
         descricao: descricao,
         created_on: new Date().toISOString(),
