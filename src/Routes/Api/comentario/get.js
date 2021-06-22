@@ -4,6 +4,7 @@ const prisma = new PrismaClient()
 module.exports = async (req, res) => {
 
   const id = req.params.id;
+  const id_tarefa = req.params.id_tarefa;
 
   try {
     if (id) {
@@ -13,7 +14,14 @@ module.exports = async (req, res) => {
         },
       })
         .then((comentario) => res.status(200).json(comentario));
-    } else {
+    }else if(id_tarefa){
+      await prisma.comentario.findMany({
+        where: {
+          id_tarefa: parseInt(id_tarefa),
+        },
+      })
+        .then((comentario) => res.status(200).json(comentario));
+    }else {
       await prisma.comentario.findMany()
         .then((comentarios) => res.status(200).json(comentarios));
     }

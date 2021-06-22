@@ -8,16 +8,13 @@ datasource db {
 }
 
 model comentario {
-  id                Int          @id @default(autoincrement())
-  id_criador        Int
-  id_comentario_pai Int?
-  descricao         String       @db.VarChar(200)
-  created_on        DateTime     @db.Timestamp(6)
-  id_tarefa         Int
-  comentario        comentario?  @relation("comentarioTocomentario_id_comentario_pai", fields: [id_comentario_pai], references: [id])
-  usuario           usuario      @relation(fields: [id_criador], references: [id])
-  tarefa            tarefa       @relation(fields: [id_tarefa], references: [id])
-  other_comentario  comentario[] @relation("comentarioTocomentario_id_comentario_pai")
+  id         Int      @id @default(autoincrement())
+  id_criador Int
+  descricao  String   @db.VarChar(200)
+  created_on DateTime @db.Timestamp(6)
+  id_tarefa  Int
+  usuario    usuario  @relation(fields: [id_criador], references: [id])
+  tarefa     tarefa   @relation(fields: [id_tarefa], references: [id])
 }
 
 model complexidade {
